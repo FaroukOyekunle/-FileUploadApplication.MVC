@@ -13,9 +13,9 @@ namespace FileUploadApplication.MVC.Controllers;
 
 public class FileController: Controller
 {
-       private readonly ApplicationDbContext _context;
+       private readonly FileUploadApplicationDbContext _context;
 
-        public FileController(ApplicationDbContext context)
+        public FileController(FileUploadApplicationDbContext context)
         {
             _context = context;
         }
