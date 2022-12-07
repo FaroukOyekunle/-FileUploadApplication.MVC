@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<FileUploadApplicationDbContext>(options =>
                 options.UseSqlServer(
-                Configuration.GetConnectionString("DefaultConnection"),
+                builder.Configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly(typeof(FileUploadApplicationDbContext).Assembly.FullName)));
 builder.Services.AddControllersWithViews();
 
