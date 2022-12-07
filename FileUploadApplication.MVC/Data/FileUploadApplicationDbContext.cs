@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using FileUploadApplication.MVC.Models;
 
 namespace FileUploadApplication.MVC.Data
 {
     public class FileUploadApplicationDbContext
     {
-        public FileUploadApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public FileUploadApplicationDbContext(DbContextOptions<FileUploadApplicationDbContext> options) : base(options)
         {
 
         }
