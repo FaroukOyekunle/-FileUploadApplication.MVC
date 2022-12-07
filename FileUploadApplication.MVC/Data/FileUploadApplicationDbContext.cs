@@ -7,7 +7,7 @@ using FileUploadApplication.MVC.Models;
 
 namespace FileUploadApplication.MVC.Data
 {
-    public class FileUploadApplicationDbContext
+    public class FileUploadApplicationDbContext : DbContext
     {
         public FileUploadApplicationDbContext(DbContextOptions<FileUploadApplicationDbContext> options) : base(options)
         {
