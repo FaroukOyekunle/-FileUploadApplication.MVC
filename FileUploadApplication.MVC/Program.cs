@@ -14,10 +14,10 @@ using Microsoft.Extensions.Hosting;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<FileUploadApplicationDbContext>(options =>
                 options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                b => b.MigrationsAssembly(typeof(FileUploadApplicationDbContext).Assembly.FullName)));
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
