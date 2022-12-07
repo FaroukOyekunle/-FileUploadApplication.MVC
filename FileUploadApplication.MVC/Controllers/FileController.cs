@@ -1,10 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using FileUploadApplication.MVC.Data;
+using FileUploadApplication.MVC.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 namespace FileUploadApplication.MVC.Controllers;
 
 public class FileController: Controller
 {
-       private readonly ApplicationDbContext _context;
+       private readonly FileUploadApplicationDbContext _context;
 
-        public FileController(ApplicationDbContext context)
+        public FileController(FileUploadApplicationDbContext context)
         {
             _context = context;
         }
@@ -69,8 +80,8 @@ public class FileController: Controller
                     await file.CopyToAsync(dataStream);
                     fileModel.Data = dataStream.ToArray();
                 }
-              await  _context.FilesOnDatabase.Add(fileModel);
-               await  _context.SaveChangesAsync();
+               _context.FilesOnDatabase.Add(fileModel);
+               _context.SaveChangesAsync();
             }
             TempData["Message"] = "File successfully uploaded to Database";
             return RedirectToAction("Index");
@@ -120,8 +131,8 @@ public class FileController: Controller
                 System.IO.File.Delete(file.FilePath);
             }
 
-           await  _context.FilesOnFileSystem.Remove(file);
-           await  _context.SaveChanges();
+            _context.FilesOnFileSystem.Remove(file);
+            _context.SaveChanges();
             TempData["Message"] = $"Removed {file.Name + file.Extension} successfully from File System.";
             return RedirectToAction("Index");
         }
@@ -130,8 +141,8 @@ public class FileController: Controller
         {
 
             var file = await _context.FilesOnDatabase.Where(x => x.Id == id).FirstOrDefaultAsync();
-          await   _context.FilesOnDatabase.Remove(file);
-          await   _context.SaveChanges();
+           _context.FilesOnDatabase.Remove(file);
+           _context.SaveChanges();
             TempData["Message"] = $"Removed {file.Name + file.Extension} successfully from Database.";
             return RedirectToAction("Index");
         }
